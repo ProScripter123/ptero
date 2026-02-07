@@ -21,8 +21,6 @@ RUN apk add --no-cache \
     oniguruma \
     oniguruma-dev \
     mysql-client \
-    nodejs \
-    npm \
     autoconf \
     g++ \
     make \
@@ -48,6 +46,9 @@ RUN apk add --no-cache \
         g++ \
         make
 
+# Install Node.js 18 LTS (compatible with older webpack)
+RUN apk add --no-cache nodejs~=18 npm
+
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -66,7 +67,8 @@ RUN curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
 
-# Build frontend assets
+# Build frontend assets with legacy OpenSSL provider
+ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN npm install --legacy-peer-deps \
     && npm run build \
     && rm -rf node_modules
