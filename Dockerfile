@@ -8,15 +8,24 @@ RUN apk add --no-cache \
     curl \
     git \
     unzip \
+    libpng \
     libpng-dev \
+    libjpeg-turbo \
     libjpeg-turbo-dev \
+    freetype \
     freetype-dev \
+    libzip \
     libzip-dev \
+    libxml2 \
     libxml2-dev \
+    oniguruma \
     oniguruma-dev \
     mysql-client \
     nodejs \
     npm \
+    autoconf \
+    g++ \
+    make \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
         gd \
@@ -24,11 +33,20 @@ RUN apk add --no-cache \
         pdo_mysql \
         mysqli \
         mbstring \
-        tokenizer \
         bcmath \
-        xml \
+        dom \
         zip \
-        opcache
+        opcache \
+    && apk del --no-cache \
+        libpng-dev \
+        libjpeg-turbo-dev \
+        freetype-dev \
+        libzip-dev \
+        libxml2-dev \
+        oniguruma-dev \
+        autoconf \
+        g++ \
+        make
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
