@@ -1,0 +1,102 @@
+{
+    "name": "Pterodactyl Panel",
+    "description": "Deploy Pterodactyl Panel - A free, open-source game server management panel built with PHP 8.3, React, and Go. Complete with MySQL and Redis.",
+    "icon": "https://raw.githubusercontent.com/pterodactyl/panel/1.0-develop/public/favicons/android-chrome-192x192.png",
+    "repository": "https://github.com/pterodactyl-installer/pterodactyl-installer",
+    "keywords": [
+        "pterodactyl",
+        "game-server",
+        "panel",
+        "php",
+        "mysql",
+        "redis",
+        "nginx"
+    ],
+    "services": [
+        {
+            "name": "pterodactyl-panel",
+            "type": "web",
+            "plan": "starter",
+            "icon": "https://raw.githubusercontent.com/pterodactyl/panel/1.0-develop/public/favicons/android-chrome-192x192.png",
+            "healthcheckPath": "/up",
+            "env": {
+                "APP_NAME": "Pterodactyl",
+                "APP_ENV": "production",
+                "APP_DEBUG": "false",
+                "APP_URL": {
+                    "description": "URL Panel Anda (akan di-set otomatis oleh Railway)",
+                    "generator": {
+                        "type": "url"
+                    }
+                },
+                "APP_TIMEZONE": "Asia/Jakarta",
+                "CACHE_DRIVER": "redis",
+                "SESSION_DRIVER": "redis",
+                "QUEUE_CONNECTION": "redis",
+                "TRUSTED_PROXIES": "*",
+                "DB_CONNECTION": "mysql",
+                "DB_HOST": {
+                    "ref": "mysql.MYSQLHOST"
+                },
+                "DB_PORT": {
+                    "ref": "mysql.MYSQLPORT"
+                },
+                "DB_DATABASE": {
+                    "ref": "mysql.MYSQLDATABASE"
+                },
+                "DB_USERNAME": {
+                    "ref": "mysql.MYSQLUSER"
+                },
+                "DB_PASSWORD": {
+                    "ref": "mysql.MYSQLPASSWORD"
+                },
+                "REDIS_HOST": {
+                    "ref": "redis.REDIS_HOST"
+                },
+                "REDIS_PORT": {
+                    "ref": "redis.REDIS_PORT"
+                },
+                "MAIL_DRIVER": "smtp",
+                "MAIL_HOST": {
+                    "description": "SMTP Host (opsional, bisa diisi nanti)",
+                    "default": "smtp.mailtrap.io"
+                },
+                "MAIL_PORT": {
+                    "description": "SMTP Port",
+                    "default": "2525"
+                },
+                "MAIL_FROM": {
+                    "description": "Email pengirim",
+                    "default": "noreply@example.com"
+                },
+                "MAIL_USERNAME": {
+                    "description": "SMTP Username (opsional)",
+                    "default": ""
+                },
+                "MAIL_PASSWORD": {
+                    "description": "SMTP Password (opsional)",
+                    "default": ""
+                },
+                "MAIL_ENCRYPTION": {
+                    "description": "SMTP Encryption",
+                    "default": "tls"
+                }
+            }
+        },
+        {
+            "name": "mysql",
+            "type": "mysql",
+            "plan": "starter",
+            "icon": "https://cdn.worldvectorlogo.com/logos/mysql-logo.svg"
+        },
+        {
+            "name": "redis",
+            "type": "redis",
+            "plan": "starter",
+            "icon": "https://cdn.worldvectorlogo.com/logos/redis.svg"
+        }
+    ],
+    "variables": {},
+    "buildCommand": null,
+    "startCommand": null
+}
