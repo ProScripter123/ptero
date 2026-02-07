@@ -67,7 +67,7 @@ RUN curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
 
 # Build frontend assets
-RUN npm install --frozen-lockfile \
+RUN npm install --legacy-peer-deps \
     && npm run build \
     && rm -rf node_modules
 
